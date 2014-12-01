@@ -1,0 +1,7 @@
+.DS_Store
+*.py[cod]
+*.log
+*.out
+*.swp
+.*.swp
+.noseids
