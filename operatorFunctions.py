@@ -66,6 +66,16 @@ def likeSearch_i(a, b):
     b.replace('_', '.')
     return regexSearch_i(a, b)
 
+def notLikeSearch(a, b):
+    b.replace('%%', '.*')
+    b.replace('_', '.')
+    return not regexSearch(a, b)
+
+def notLikeSearch_i(a, b):
+    b.replace('%%', '.*')
+    b.replace('_', '.')
+    return not regexSearch_i(a, b)
+
 
 ################################################################################
 ### The main function we use external to this file:
@@ -83,30 +93,35 @@ def likeSearch_i(a, b):
 def getOperatorFunction(opr):
 
   operatorFunctionMap = {
-      '<':     operator.lt,
-      '>':     operator.gt,
-      '<=':    operator.le,
-      '>=':    operator.ge,
-      '=':     operator.eq,
-      '<>':    operator.ne,
-      '!=':    operator.ne,
-      '@>':    operator.contains,
-      '<@':    reverseContains,
-      '<<':    strictlyLeft,
-      '>>':    strictlyRight,
-      '&<':    rightBounded,
-      '>&':    leftBounded,
-      '&&':    overlap,
-      'is':    operator.eq, # this one won't work in every sql context, but should for some cases
-      '~':     regexSearch,
-      '~*':    regexSearch_i,
-      '!~':    notRegexSearch,
-      '!~*':   notRegexSearch_i,
-      '~~':    likeSearch,
-      'like':  likeSearch,
-      '~~*':   likeSearch_i,
-      'ilike': likeSearch_i
-      'similar to': regexSearch
+      '<':          operator.lt,
+      '>':          operator.gt,
+      '<=':         operator.le,
+      '>=':         operator.ge,
+      '=':          operator.eq,
+      '<>':         operator.ne,
+      '!=':         operator.ne,
+      '@>':         operator.contains,
+      '<@':         reverseContains,
+      '<<':         strictlyLeft,
+      '>>':         strictlyRight,
+      '&<':         rightBounded,
+      '>&':         leftBounded,
+      '&&':         overlap,
+      'is':         operator.eq, # this one won't work in every sql context, but should for some cases
+      '~':          regexSearch,
+      '~*':         regexSearch_i,
+      '!~':         notRegexSearch,
+      '!~*':        notRegexSearch_i,
+      '~~':         likeSearch,
+      '!~~':        notLikeSearch,
+      'like':       likeSearch,
+      'not like':   notLikeSearch,
+      '~~*':        likeSearch_i,
+      '!~~*':       notLikeSearch_i,
+      'ilike':      likeSearch_i,
+      'not ilike':  likeSearch_i,
+      'similar to': regexSearch,
+      'not similar to': notRegexSearch
   }
 
   if not operatorFunctionMap.has_key(opr):
