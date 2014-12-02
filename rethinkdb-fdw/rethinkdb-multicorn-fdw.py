@@ -18,7 +18,7 @@ class RethinkdbFDW(ForeignDataWrapper):
     # This class initializer is largely borrowed from the Hive Multicorn FDW
     def __init__(self, options, columns):
 
-        super(HiveForeignDataWrapper, self).__init__(options, columns)
+        super(RethinkFDW, self).__init__(options, columns)
 
         if 'host' not in options:
             log_to_postgres('The host parameter is required and the default is localhost.', WARNING)
