@@ -1,48 +1,12 @@
 ## This is the implementation of the Multicorn ForeignDataWrapper class that does all of the work in RethinkDB
 ## R.Otten - 2014
 
-import operator
-
 from multicorn import ForeignDataWrapper
 from multicorn.utils import log_to_postgres, ERROR, WARNING, DEBUG
 
 import rethinkdb as r
 
-
-## Translate a string with an operator in it (eg. ">=") into a function.
-# hint from here:  http://stackoverflow.com/questions/1740726/python-turn-string-into-operator
-# Things that might come from PostgreSQL:  http://www.postgresql.org/docs/9.3/static/functions-comparison.html 
-def getOperatorFunction(opr):
-
-  '<': operator.lt
-  '>': operator.gt
-  '<=': operator.le
-  '>=': operator.ge
-  '=': operator.eq
-  '<>': operator.ne
-  '!=': operator.ne
-  '@>': operator.contains
-  '<@': 
-  '<<':
-  '>>':
-  '&<':
-  '>&':
-  '&&':
-  'is':
-  '~':
-  '~*':
-  '!~':
-  '!~*':
-  '~~':
-  'like':
-  '~~*':
-  'ilike':
-  'similar to':
-  # I'm not sure we'll get "between" so it isn't implemented for now.
-  # I'm not sure 'OR' will get through either as an operator.
-  # We are not going to try to support Geometric object operators at this time.
-  # Nor will we support the Network Address operators yet.
-  # There aren't any json specific comparison operators yet (if there were, we would want to try to implement them)
+from operatorFunctions import unknownOperatorException, getOperatorFunction
 
 ## The Foreign Data Wrapper Class:
 class RethinkdbFDW(ForeignDataWrapper):
@@ -90,7 +54,11 @@ class RethinkdbFDW(ForeignDataWrapper):
 
         for qual in quals:
 
-            operatorFunction = getOperatorFunction(qual.operator)
+            try:
+                operatorFunction = getOperatorFunction(qual.operator)
+            except unknownOperatorException, e:
+                log_to_postgres(e, ERROR)
+
             myQuery = myQuery.filter(operatorFunction(r.row[qual.field_name], qual.value))
 
          return _run_rethinkdb_action(action=myQuery)
