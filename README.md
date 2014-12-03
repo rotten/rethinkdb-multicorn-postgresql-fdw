@@ -5,8 +5,9 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
 
 <i>This has only been tested with Multicorn 1.1, PostgreSQL 9.3, and RethinkDB 1.15.  If you are using something else, your mileage may vary.</i>
 
-<dt>First install Multicorn on your database server.  It is easiest to do with pgxn:</dt>
+<dt>First install RethinkDB's Python libraries and Multicorn on your PostgreSQL database server.</dt>
 <ol>
+<dd<b>$</b>   sudo pip install rethinkdb</dd>
 <dd><b>$</b>  sudo pgxn install multicorn</dd>
 </ol>
 

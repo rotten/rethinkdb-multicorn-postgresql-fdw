@@ -4,12 +4,12 @@
 from distutils.core import setup
 
 setup(
-  name='rethinkdb-fdw',
+  name='rethinkdb_fdw',
   version='0.1',
   author='Rick Otten',
   author_email='rotten@geardigital.com',
   license='Postgresql',
-  py_modules=['rethinkdb-fdw'],
+  py_modules=['rethinkdb_fdw'],
   url='https://github.com/wilsonrms/rethinkdb-multicorn-postgresql-fdw'
 )
 
