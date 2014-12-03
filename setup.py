@@ -13,5 +13,3 @@ setup(
   url='https://github.com/wilsonrms/rethinkdb-multicorn-postgresql-fdw'
 )
 
-
-#  packages=['rethinkdb-fdw'],
