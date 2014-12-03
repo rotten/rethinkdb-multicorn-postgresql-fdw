@@ -9,8 +9,9 @@ setup(
   author='Rick Otten',
   author_email='rotten@geardigital.com',
   license='Postgresql',
-  packages=['rethinkdb-fdw'],
+  py_modules=['rethinkdb-fdw'],
   url='https://github.com/wilsonrms/rethinkdb-multicorn-postgresql-fdw'
 )
 
 
+#  packages=['rethinkdb-fdw'],
