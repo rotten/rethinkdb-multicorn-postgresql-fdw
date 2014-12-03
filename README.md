@@ -11,7 +11,7 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
 <dd><b>$</b>  sudo pgxn install multicorn</dd>
 </ol>
 
-<dt>Then install this on your database server:</dt>
+<dt>Then install this package on your PostgreSQL database server:</dt>
 <ol>
 <dd><b>$</b>  git clone https://github.com/wilsonrmsorg/rethinkdb-multicorn-postgresql-fdw</dd>
 <dd><b>$</b>  cd rethinkdb-multicorn-postgresql-fdw</dd>
@@ -21,15 +21,15 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
 <dt>Then create a table like this:</dt>
 <ol>
 <dd><b>mydb=#</b> create extension multicorn;</dd>
-<dd><b>mydb-#</b> create server <i>myrethinkdb</i> foreign data wrapper multicorn options (wrapper 'RethinkDBFDW', host '<i>myhost</i>', port '28015', database '<i>somerethinkdb</i>');</dd>
+<dd><b>mydb-#</b> create server <i>myrethinkdb</i> foreign data wrapper multicorn options (wrapper 'rethinkdb_fdw.rethinkdb_fdw.RethinkDBFDW', host '<i>myhost</i>', port '<i>28015</i>', database '<i>somerethinkdb</i>');</dd>
 <dd><b>mydb-#</b> create foreign table <i>mytable</i> (
-                  id uuid,
-                  somekey varchar,
-                  someotherkey varchar,
-                  sometimestamp timestamp (6) with time zone,
-                  bigintegerkey long,
-                  nestedjsonkey json,
-                  yetanotherkey varchar)
-                  server trackerdb options (table_name '<i>rethinkdb_table</i>');</dd>
+                  <br />id uuid,
+                  <br />somekey varchar,
+                  <br />someotherkey varchar,
+                  <br />sometimestamp timestamp (6) with time zone,
+                  <br />bigintegerkey long,
+                  <br />nestedjsonkey json,
+                  <br />yetanotherkey varchar)
+                  <br />server trackerdb options (table_name '<i>rethinkdb_table</i>');</dd>
 </ol>
 
