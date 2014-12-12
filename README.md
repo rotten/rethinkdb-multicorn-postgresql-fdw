@@ -29,7 +29,7 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
     bigintegerkey long,
     nestedjsonkey json,
     yetanotherkey varchar
-    ) server trackerdb options (table_name '<i>rethinkdb_table</i>');
+    ) server myrethinkdb options (table_name '<i>rethinkdb_table</i>');
     </pre></dd>
 </ol>
 
