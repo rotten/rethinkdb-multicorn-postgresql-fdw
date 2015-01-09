@@ -1,12 +1,16 @@
 ## This is the implementation of the Multicorn ForeignDataWrapper class that does all of the work in RethinkDB
 ## R.Otten - 2014
 
+from collections import OrderedDict
+import json
+
 from multicorn import ForeignDataWrapper
 from multicorn.utils import log_to_postgres, ERROR, WARNING, DEBUG
 
 import rethinkdb as r
 
 from operatorFunctions import unknownOperatorException, getOperatorFunction
+
 
 ## The Foreign Data Wrapper Class:
 class RethinkDBFDW(ForeignDataWrapper):
@@ -98,8 +102,30 @@ class RethinkDBFDW(ForeignDataWrapper):
 
             myQuery = myQuery.filter(operatorFunction(r.row[qual.field_name], qual.value))
 
-        return self._run_rethinkdb_action(action=myQuery)
+        rethinkResults = self._run_rethinkdb_action(action=myQuery)
+         
+        # By default, Multicorn seralizes dictionary types into something for hstore column types.
+        # That looks something like this:   "key => value"
+        # What we really want is this:  "{key:value}"
+        # so we serialize it here.  (This is git issue #1 for this repo, and issue #86 in the Multicorn repo.)
 
+        for resultRow in rethinkResults:
+
+            # I don't think we can mutate the row in the rethinkResults cursor directly.
+            # It needs to be copied out of the cursor to be reliably mutable.
+            row = OrderedDict()
+            for resultColumn in resultRow.keys():
+
+                if type(resultRow[resultColumn]) is dict:
+
+                    row[resultColumn] = json.dumps(resultRow[resultColumn])
+
+                else:
+
+                    row[resultColumn] = resultRow[resultColumn]
+
+            yield row
+ 
 
     # SQL INSERT:
     def insert(self, new_values):
