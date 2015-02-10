@@ -42,5 +42,10 @@ When foreign table performance is an issue, you may want to put a materialized v
 1. You can set:  `log_min_messages = debug1` in your postgresql.conf to see the log_to_postgres() DEBUG messages.
 2. You will probably need to exit psql and re-enter it to pick up changes to the python libraries when you push an update. (You do not necessarily have to drop your server and table definitions if you are only changing the querying logic.)
 3. Send us a pull request if you have bug fixes or enhancements or good ideas to make it better.
+ 
+<hr>
+
+
+Here is a noteworthy Blog Post at RethinkDB on this project:  http://rethinkdb.com/blog/postgres-foreign-data-wrapper/ 
 
 
