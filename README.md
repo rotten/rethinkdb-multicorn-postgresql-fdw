@@ -46,6 +46,6 @@ When foreign table performance is an issue, you may want to put a materialized v
 <hr>
 
 
-Here is a noteworthy Blog Post at RethinkDB on this project:  http://rethinkdb.com/blog/postgres-foreign-data-wrapper/ 
+Here is a noteworthy blog post on the RethinkDB site about this project:  http://rethinkdb.com/blog/postgres-foreign-data-wrapper/ 
 
 
