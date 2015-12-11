@@ -79,7 +79,7 @@ class RethinkDBFDW(ForeignDataWrapper):
 
             conn.close()
             log_to_postgres('RethinkDB error:  %s' %e, ERROR)
- 
+
 
         return result
 
@@ -103,7 +103,7 @@ class RethinkDBFDW(ForeignDataWrapper):
             myQuery = myQuery.filter(operatorFunction(r.row[qual.field_name], qual.value))
 
         rethinkResults = self._run_rethinkdb_action(action=myQuery)
-         
+
         # By default, Multicorn seralizes dictionary types into something for hstore column types.
         # That looks something like this:   "key => value"
         # What we really want is this:  "{key:value}"
@@ -125,7 +125,7 @@ class RethinkDBFDW(ForeignDataWrapper):
                     row[resultColumn] = resultRow[resultColumn]
 
             yield row
- 
+
 
     # SQL INSERT:
     def insert(self, new_values):
@@ -136,30 +136,34 @@ class RethinkDBFDW(ForeignDataWrapper):
                                                   .insert(new_values))
 
     # SQL UPDATE:
-    def update(self, old_values, new_values):
+    def update(self, rowid, new_values):
 
         log_to_postgres('Update Request - new values:  %s' % new_values, DEBUG)
 
-        if not old_values.has_key('id'):
+        if not rowid:
 
-             log_to_postgres('Update request requires old_values ID (PK).  Missing From:  %s' % old_values, ERROR)
+             log_to_postgres('Update request requires rowid (PK).', ERROR)
 
         return self._run_rethinkdb_action(action=r.table(self.table)\
-                                                  .get(old_values.id)\
+                                                  .get(rowid)\
                                                   .update(new_values))
 
     # SQL DELETE
-    def delete(self, old_values):
+    def delete(self, rowid):
 
-        log_to_postgres('Delete Request - old values:  %s' % old_values, DEBUG)
+        log_to_postgres('Delete Request - rowid:  %s' % rowid, DEBUG)
 
-        if not old_values.has_key('id'):
+        if not rowid:
 
-            log_to_postgres('Update request requires old_values ID (PK).  Missing From:  %s' % old_values, ERROR)
+            log_to_postgres('Update request requires rowid (PK).', ERROR)
 
         return self._run_rethinkdb_action(action=r.table(self.table)\
-                                                  .get(old_values.id)\
+                                                  .get(rowid)\
                                                   .delete())
 
 
+    def rowid_column(self, rowid):
 
+        log_to_postgres('rowid requested', DEBUG)
+
+        return 'id'
