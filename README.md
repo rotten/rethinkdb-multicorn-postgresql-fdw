@@ -26,7 +26,7 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
     somekey varchar,
     someotherkey varchar,
     sometimestamp timestamp (6) with time zone,
-    bigintegerkey long,
+    bigintegerkey bigint,
     nestedjsonkey json,
     yetanotherkey varchar
     ) server myrethinkdb options (table_name '<i>rethinkdb_table</i>');
