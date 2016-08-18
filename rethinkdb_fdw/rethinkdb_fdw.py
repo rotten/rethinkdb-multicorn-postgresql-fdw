@@ -120,6 +120,10 @@ class RethinkDBFDW(ForeignDataWrapper):
 
                     row[resultColumn] = json.dumps(resultRow[resultColumn])
 
+                elif type(resultRow[resultColumn]) is list:
+
+                    row[resultColumn] = json.dumps(resultRow[resultColumn])
+
                 else:
 
                     row[resultColumn] = resultRow[resultColumn]
