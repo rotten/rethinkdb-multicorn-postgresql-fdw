@@ -7,9 +7,9 @@ setup(
   name='rethinkdb_fdw',
   version='0.1',
   author='Rick Otten',
-  author_email='rotten@geardigital.com',
+  author_email='rotten@windfish.net',
   license='Postgresql',
   packages=['rethinkdb_fdw'],
-  url='https://github.com/wilsonrms/rethinkdb-multicorn-postgresql-fdw'
+  url='https://github.com/rotten/rethinkdb-multicorn-postgresql-fdw'
 )
 
