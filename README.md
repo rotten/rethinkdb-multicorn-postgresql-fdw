@@ -12,7 +12,7 @@ Multicorn based PostgreSQL Foreign Data Wrapper for RethinkDB
 
 <dt>Then install this package on your PostgreSQL database server:</dt>
 <ol>
-<dd><b>$</b>  git clone https://github.com/wilsonrmsorg/rethinkdb-multicorn-postgresql-fdw</dd>
+<dd><b>$</b>  git clone https://github.com/rotten/rethinkdb-multicorn-postgresql-fdw</dd>
 <dd><b>$</b>  cd rethinkdb-multicorn-postgresql-fdw</dd>
 <dd><b>$</b>  sudo python setup.py install</dd>
 </ol>
